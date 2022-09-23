@@ -1,7 +1,7 @@
-input_file=slides/presentation.md
+input_file=src/presentation.qmd
 
 all: html
 
 html: $(input_file)
-	quarto render slides --to revealjs
+	quarto render src --to revealjs
 	mv docs/presentation.html docs/index.html
