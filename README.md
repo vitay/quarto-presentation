@@ -7,7 +7,7 @@ Check the doc at <https://quarto.org/> and simply install Quarto.
 ## Installation
 
 ```bash
-git clone https://github.com/vitay/QuartoPresentation.git
+git clone https://github.com/vitay/quarto-presentation.git
 ```
 
 A useful extension allows to embed youtube videos directly:
