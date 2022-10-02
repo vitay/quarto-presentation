@@ -4,6 +4,10 @@ Basic structure to create simple HTML presentations using Quarto, based on Pando
 
 Check the doc at <https://quarto.org/> and simply install Quarto.
 
+The `docs/` filter can be directly used by Github Pages. Example:
+
+<https://julien-vitay.net/quarto-presentation>
+
 ## Installation
 
 ```bash
