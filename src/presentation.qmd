@@ -3,7 +3,7 @@ title: Title of the presentation
 subtitle: Subtitle
 author: Author name
 institute: Institution
-date: Date
+date: December 2022
 ---
 
 # First slide
@@ -52,6 +52,6 @@ This is a tip.
 Footer
 :::
 
-# Youtube videos
+# Videos
 
-{{< youtube dQw4w9WgXcQ >}}
+{{< video https://www.youtube.com/embed/tPgf_btTFlc >}}
