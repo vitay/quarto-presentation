@@ -1,6 +1,9 @@
 project:
   output-dir: ../docs
 
+bibliography: references.bib
+csl: ../assets/frontiers.csl
+
 format:
   revealjs: 
     theme: [default, ../assets/slides.scss]

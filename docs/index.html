@@ -92,6 +92,25 @@
     code span.va { color: #e36209; } /* Variable */
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
@@ -422,6 +441,7 @@ Author name
 
   <p class="date">12/1/22</p>
 </section>
+<section>
 <section id="first-slide" class="title-slide slide level1 center">
 <h1>First slide</h1>
 <div class="columns">
@@ -436,6 +456,9 @@ Author name
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Citations are automatically added to the last slide <span class="citation" data-cites="Vitay2015">(<a href="#/references" role="doc-biblioref" onclick="">Vitay et al., 2015</a>)</span>.</li>
+</ul>
 </div><div class="column" style="width:50%;">
 <ul>
 <li>Image:</li>
@@ -471,12 +494,19 @@ Author name
 <p>Footer</p>
 </div>
 </section>
-
-<section id="videos" class="title-slide slide level1 center">
-<h1>Videos</h1>
-<iframe src="https://www.youtube.com/embed/tPgf_btTFlc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<section id="video-slide" class="slide level2">
+<h2>Video Slide</h2>
+<iframe src="https://www.youtube.com/embed/wo9vZccmqwc" width="100%" height="85%" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</section></section>
+<section id="references" class="title-slide slide level1 smaller scrollable">
+<h1>References</h1>
 <div class="footer footer-default">
 
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Vitay2015" class="csl-entry" role="doc-biblioentry">
+Vitay, J., Dinkelbach, H. Ü., and Hamker, F. H. (2015). <span>ANNarchy</span>: A code generation approach to neural simulations on parallel hardware. <em>Frontiers in Neuroinformatics</em> 9. doi:<a href="https://doi.org/10.3389/fninf.2015.00019">10.3389/fninf.2015.00019</a>.
+</div>
 </div>
 </section>
     </div>
