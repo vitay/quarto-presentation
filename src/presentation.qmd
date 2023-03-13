@@ -3,36 +3,53 @@ title: Title of the presentation
 subtitle: Subtitle
 author: Author name
 institute: Institution
-date: December 2022
+date: today
+
+footer: Presentation by author in this context (optional).
 ---
 
-# First slide
+
+## First slide
 
 
 ::: {.columns}
 ::: {.column width=50%}
 
-* **Bold**, *italic*, `typewriter`
+* **Bold**, *italic*, `typewriter`, [link](https://julien-vitay.net), <https://julien-vitay.net>
 
 * Equations:
 
-$$\dfrac{a}{b} = 2$$
+$$
+    \dfrac{d v(t)}{dt} + v(t) = I(t)
+$$
 
 * Code:
 
 ```python
-for i in range(10):
-    print(i)
+from ANNarchy import *
+
+pop = Population(
+    100, 
+    Neuron(
+        parameters = "tau = 10.0; I = 0.0",
+        equations = "tau * dv/dt = I - v",
+        spike = "v > 1.0",
+        reset = "v = 0.0"
+    )
+)
+
+compile()
 ```
 
-* Citations are automatically added to the last slide [@Vitay2015].
+* Citations [@Vitay2015] are automatically added to the last slide using a `.bib` file. You can hover the citation to see the full reference.
+
 
 ::: 
 ::: {.column width=50%}
 
 * Image:
 
-![](img/tuc.svg)
+![](img/ai.webp){width=50% fig-align="center"}
 
 
 ::: {.callout-note}
@@ -51,11 +68,14 @@ This is a tip.
 :::
 
 ::: footer
-Footer
+Footer (just for this slide)
 :::
 
-## Video Slide 
+
+
+## Video
 
 {{< video https://youtu.be/wo9vZccmqwc width="100%" height="85%" >}}
 
-# References
+
+## References

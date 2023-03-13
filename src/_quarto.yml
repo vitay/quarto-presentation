@@ -7,25 +7,31 @@ csl: ../assets/frontiers.csl
 format:
   revealjs: 
     theme: [default, ../assets/slides.scss]
-    slide-number: true
+    slide-number: c/t
     html-math-method: katex
+
+    height: 900
+    width: 1600
+    auto-stretch: false
+    touch: true
+    fig-align: "center"
+
     chalkboard: 
       buttons: false
       theme: whiteboard
 
+    highlight-style: github
+    code-line-numbers: false
+    callout-appearance: minimal
+
     revealjs-plugins:
       - pointer
 
-title-slide-attributes:
-    data-background-image: "img/tuc.svg"
-    data-background-size: 30%
-    data-background-opacity: "1"
-    data-background-position: top
+    center-title-slide: true
+    title-slide-attributes:
+        data-background-image: "img/tuc-new.png"
+        data-background-size: 30%
+        data-background-opacity: "1"
+        data-background-position: top
 
-highlight-style: github
-code-line-numbers: false
-callout-appearance: minimal
 
-filters:
-  - ../assets/center_images.lua
-  - quarto
