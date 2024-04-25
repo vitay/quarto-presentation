@@ -1,12 +1,10 @@
 project:
-  output-dir: ../docs
+  output-dir: ./docs
 
-bibliography: references.bib
-csl: ../assets/frontiers.csl
 
 format:
   revealjs: 
-    theme: [default, ../assets/slides.scss]
+    theme: [default, assets/slides.scss]
     slide-number: c/t
     html-math-method: katex
 
@@ -33,5 +31,6 @@ format:
         data-background-size: 30%
         data-background-opacity: "1"
         data-background-position: top
+
 
 

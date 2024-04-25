@@ -23,7 +23,9 @@ quarto install extension sellorm/quarto-youtube-embed
 
 ## Usage
 
-Using quarto is a one-liner (`quarto render slides --to revealjs`), but the provided Makefile makes it even easier:
+The source for the presentation is in `index.qmd`.
+
+Using quarto is a one-liner (`quarto render index.qmd --to revealjs`), but the provided Makefile makes it even easier:
 
 ```
 make

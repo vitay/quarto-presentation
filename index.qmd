@@ -1,0 +1,136 @@
+---
+title: Title of the presentation
+subtitle: Subtitle can be longer than the title but doesn't have to
+
+author:
+  - name: Julien Vitay 
+    email: julien.vitay@informatik.tu-chemnitz.de
+    url: https://julien-vitay.net
+    affiliation: Chemnitz University of Technology
+    affiliation-url: https://tu-chemnitz.de
+    orcid: 0000-0001-5229-2349
+
+bibliography: references.bib
+csl: assets/frontiers.csl
+
+footer: Presentation by author in this context (optional).
+---
+
+
+# First slide
+
+::: {.columns}
+::: {.column width=50%}
+
+* Basic Markdown: **Bold**, *italic*, `typewriter`, [link](https://julien-vitay.net), <https://julien-vitay.net>
+
+* Equations with `katex` inline $\dfrac{d v(t)}{dt}$ and block:
+
+$$
+    \dfrac{d v(t)}{dt} + v(t) = I(t)
+$$
+
+* Code blocks with syntax highlighting:
+
+```python
+import ANNarchy as ann
+
+pop = ann.Population(
+    100, 
+    ann.Neuron(
+        parameters = "tau = 10.0; I = 0.0",
+        equations = "tau * dv/dt = I - v",
+        spike = "v > 1.0",
+        reset = "v = 0.0"
+    )
+)
+
+ann.compile()
+```
+
+
+::: 
+::: {.column width=50%}
+
+![](img/ai.webp){width=50% fig-align="center"}
+
+
+::: {.callout-note}
+## Note
+
+This is a note.
+:::
+
+::: {.callout-tip}
+## Beware
+
+This is a tip.
+:::
+
+:::
+:::
+
+
+* Citations [@Vitay2015] are automatically added to the last slide using a `.bib` file. You can hover the citation to see the full reference.
+
+::: footer
+Footer (just for this slide)
+:::
+
+# Python code
+
+:::columns
+:::column
+
+* You can call Python / R / Julia code directly from a quarto document, and render the result, such as a Matplotlib plot:
+
+```python
+```{{python}}
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+```
+
+:::
+:::column
+
+```{python}
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+:::
+:::
+
+## Video extension (must start with `##`)
+
+{{< video https://youtu.be/wo9vZccmqwc width="100%" height="85%" >}}
+
+
+# References
