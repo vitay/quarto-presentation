@@ -17,7 +17,6 @@ git clone https://github.com/vitay/quarto-presentation.git
 A useful extension allows to embed youtube videos directly:
 
 ```bash
-cd slides
 quarto install extension sellorm/quarto-youtube-embed
 ```
 
@@ -25,10 +24,10 @@ quarto install extension sellorm/quarto-youtube-embed
 
 The source for the presentation is in `index.qmd`.
 
-Using quarto is a one-liner (`quarto render index.qmd --to revealjs`), but the provided Makefile makes it even easier:
+Using quarto is a one-liner:
 
 ```
-make
+quarto render index.qmd
 ```
 
 The resulting presentation is in `docs/index.html`, which can be used directly with Github Pages.

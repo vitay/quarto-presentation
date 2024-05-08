@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.4.553">
 
   <meta name="author" content="Julien Vitay">
-  <title>Title of the presentation</title>
+  <title>Markdown, Pandoc and Quarto</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -428,8 +428,8 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="img/tuc-new.png" data-background-opacity="1" data-background-position="top" data-background-size="30%" class="quarto-title-block center">
-  <h1 class="title">Title of the presentation</h1>
-  <p class="subtitle">Subtitle can be longer than the title but doesn’t have to</p>
+  <h1 class="title">Markdown, Pandoc and Quarto</h1>
+  <p class="subtitle">a modern ecosystem for typesetting and publishing</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -448,94 +448,442 @@
 </div>
 
 </section>
-<section id="first-slide" class="title-slide slide level1 center">
-<h1>First slide</h1>
+<section id="sec-introduction" class="title-slide slide level1 center">
+<h1>Why Markdown?</h1>
+<ul>
+<li>The two main approaches to generating documents (reports, slides, etc) are Office suites (MS, Google, Libre…) and LaTeX.</li>
+</ul>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Office</strong></p>
+</div>
+<div class="callout-content">
+<p><em>Pros:</em></p>
 <ul>
-<li><p>Basic Markdown: <strong>Bold</strong>, <em>italic</em>, <code>typewriter</code>, <a href="https://julien-vitay.net">link</a>, <a href="https://julien-vitay.net" class="uri">https://julien-vitay.net</a></p></li>
-<li><p>Equations with <code>katex</code> inline <span class="math inline">\dfrac{d v(t)}{dt}</span> and block:</p></li>
+<li>WYSIWYG</li>
+<li>Collaboration (review mode, google doc)</li>
 </ul>
-<p><span class="math display">
-    \dfrac{d v(t)}{dt} + v(t) = I(t)
-</span></p>
+<p><em>Cons:</em></p>
 <ul>
-<li>Code blocks with syntax highlighting:</li>
+<li>Version conflicts.</li>
+<li>Reproducibility.</li>
+<li>Math equations and bibliography are not great.</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ANNarchy <span class="im">as</span> ann</span>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>LaTeX</strong></p>
+</div>
+<div class="callout-content">
+<p><em>Pros:</em></p>
+<ul>
+<li>Beautiful documents (but not beamer slides).</li>
+<li>Reproducibility.</li>
+</ul>
+<p><em>Cons:</em></p>
+<ul>
+<li>Horrible markup language.</li>
+<li>Compilation is slow.</li>
+<li>Only outputs pdf (no video in your slides).</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Both are additionally not great at generating html <span class="math inline">\rightarrow</span> third ecosystem.</li>
+</ul>
+</section>
+
+<section id="sec-markdown" class="title-slide slide level1 center">
+<h1>1 - Markdown</h1>
+
+</section>
+
+<section id="basic-markdown-syntax" class="title-slide slide level1 center">
+<h1>Basic Markdown syntax</h1>
+<ul>
+<li>Markdown is a markup language (as html, tex, wiki, rst…) initially developed to write basic documents (e.g.&nbsp;README files or blocks in Jupyter notebooks).</li>
+</ul>
+<div class="columns">
+<div class="column">
+<p><strong>Latex</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">\textbf</span>{Bold text} <span class="fu">\textit</span>{Italic text}  <span class="fu">\verb</span>?Verbatim?</span>
 <span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="" aria-hidden="true" tabindex="-1"></a>pop <span class="op">=</span> ann.Population(</span>
-<span id="cb1-4"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100</span>, </span>
-<span id="cb1-5"><a href="" aria-hidden="true" tabindex="-1"></a>    ann.Neuron(</span>
-<span id="cb1-6"><a href="" aria-hidden="true" tabindex="-1"></a>        parameters <span class="op">=</span> <span class="st">"tau = 10.0; I = 0.0"</span>,</span>
-<span id="cb1-7"><a href="" aria-hidden="true" tabindex="-1"></a>        equations <span class="op">=</span> <span class="st">"tau * dv/dt = I - v"</span>,</span>
-<span id="cb1-8"><a href="" aria-hidden="true" tabindex="-1"></a>        spike <span class="op">=</span> <span class="st">"v &gt; 1.0"</span>,</span>
-<span id="cb1-9"><a href="" aria-hidden="true" tabindex="-1"></a>        reset <span class="op">=</span> <span class="st">"v = 0.0"</span></span>
-<span id="cb1-10"><a href="" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-11"><a href="" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">itemize</span>}</span>
+<span id="cb1-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\item</span> Item 1</span>
+<span id="cb1-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\item</span> Item 2</span>
+<span id="cb1-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">itemize</span>}</span>
+<span id="cb1-7"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">enumerate</span>}</span>
+<span id="cb1-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\item</span> Item 1</span>
+<span id="cb1-10"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\item</span> Item 2</span>
+<span id="cb1-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">enumerate</span>}</span>
 <span id="cb1-12"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="" aria-hidden="true" tabindex="-1"></a>ann.<span class="bu">compile</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column" style="width:50%;">
+<span id="cb1-13"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">\section</span>{First header}</span>
+<span id="cb1-14"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">\subsection</span>{Second header}</span>
+<span id="cb1-15"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">\subsubsection</span>{Third header}</span>
+<span id="cb1-16"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">\href</span>{https://julien-vitay.net}{My website}</span>
+<span id="cb1-18"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">\url</span>{https://julien-vitay.net}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<p><strong>Markdown</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a>**Bold text** *Italic text* <span class="in">`Verbatim`</span></span>
+<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Item 1</span>
+<span id="cb2-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Item 2</span>
+<span id="cb2-5"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Item 1</span>
+<span id="cb2-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Item 2</span>
+<span id="cb2-8"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu"># First header</span></span>
+<span id="cb2-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">## Second header</span></span>
+<span id="cb2-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">### Third header</span></span>
+<span id="cb2-12"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">https://julien-vitay.net</span><span class="co">](My website)</span></span>
+<span id="cb2-15"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://julien-vitay.net&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+
+<section id="images" class="title-slide slide level1 center">
+<h1>Images</h1>
+<div class="columns">
+<div class="column">
+<p><strong>Latex</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="bu">\includegraphics</span>{<span class="ex">img/ai.png</span>}</span>
+<span id="cb3-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">figure</span>}[htbp]</span>
+<span id="cb3-4"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\centering</span></span>
+<span id="cb3-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="bu">\includegraphics</span>[width=0.5<span class="fu">\textwidth</span>]{<span class="ex">img/ai.png</span>}</span>
+<span id="cb3-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\caption</span>{The logo of the lab.}</span>
+<span id="cb3-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="kw">\label</span>{<span class="ex">fig:mesh1</span>}</span>
+<span id="cb3-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">figure</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="img/ai.webp" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
 </figure>
 </div>
-<div class="callout callout-note no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Note</strong></p>
+</div><div class="column">
+<p><strong>Markdown</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/ai.webp)</span></span>
+<span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="al">![The logo of the lab.](img/ai.webp)</span>{width=50%}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-logolab" class="quarto-figure quarto-figure-center quarto-float">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-logolab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="img/ai.webp" style="width:50.0%">
 </div>
-<div class="callout-content">
-<p>This is a note.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-tip no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Beware</strong></p>
-</div>
-<div class="callout-content">
-<p>This is a tip.</p>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-logolab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The logo of the lab.
+</figcaption>
+</figure>
 </div>
 </div>
-</div>
-</div>
-</div>
-<ul>
-<li>Citations <span class="citation" data-cites="Vitay2015">(<a href="#/references" role="doc-biblioref" onclick="">Vitay et al., 2015</a>)</span> are automatically added to the last slide using a <code>.bib</code> file. You can hover the citation to see the full reference.</li>
-</ul>
-<div class="footer">
-<p>Footer (just for this slide)</p>
 </div>
 </section>
 
-<section>
-<section id="python-code" class="title-slide slide level1 center">
-<h1>Python code</h1>
+<section id="tables" class="title-slide slide level1 center">
+<h1>Tables</h1>
+<div class="columns">
+<div class="column">
+<p><strong>Latex</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">tabular</span>}{|ccc|}</span>
+<span id="cb5-2"><a href="" aria-hidden="true" tabindex="-1"></a> <span class="fu">\hline</span></span>
+<span id="cb5-3"><a href="" aria-hidden="true" tabindex="-1"></a> Column 1 <span class="op">&amp;</span> Column 2 <span class="op">&amp;</span> Column 3 <span class="fu">\\</span></span>
+<span id="cb5-4"><a href="" aria-hidden="true" tabindex="-1"></a> <span class="fu">\hline</span> <span class="fu">\hline</span></span>
+<span id="cb5-5"><a href="" aria-hidden="true" tabindex="-1"></a> item 11 <span class="op">&amp;</span> item 12 <span class="op">&amp;</span> item 13 <span class="fu">\\</span></span>
+<span id="cb5-6"><a href="" aria-hidden="true" tabindex="-1"></a> <span class="fu">\hline</span></span>
+<span id="cb5-7"><a href="" aria-hidden="true" tabindex="-1"></a> item 21  <span class="op">&amp;</span> item 22  <span class="op">&amp;</span> item 23  <span class="fu">\\</span></span>
+<span id="cb5-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">\hline</span></span>
+<span id="cb5-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">tabular</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<p><strong>Markdown</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="" aria-hidden="true" tabindex="-1"></a>| Column 1 | Column 2 | Column 3 |</span>
+<span id="cb6-2"><a href="" aria-hidden="true" tabindex="-1"></a>| -------- | -------- | -------- |</span>
+<span id="cb6-3"><a href="" aria-hidden="true" tabindex="-1"></a>| item 11  | item 12  | item 13  |</span>
+<span id="cb6-4"><a href="" aria-hidden="true" tabindex="-1"></a>| item 21  | item 22  | item 23  |</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<p><strong>Rendered</strong></p>
+<table class="table table-striped table-hover table-bordered">
+<thead>
+<tr class="header">
+<th>Column 1</th>
+<th>Column 2</th>
+<th>Column 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>item 11</td>
+<td>item 12</td>
+<td>item 13</td>
+</tr>
+<tr class="even">
+<td>item 21</td>
+<td>item 22</td>
+<td>item 23</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>See <a href="https://www.tablesgenerator.com/markdown_tables" class="uri">https://www.tablesgenerator.com/markdown_tables</a> for easier design of tables.</p>
+</section>
+
+<section id="code-blocks" class="title-slide slide level1 center">
+<h1>Code blocks</h1>
+<div class="columns">
+<div class="column">
+<p><strong>Latex</strong></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">lstlisting</span>}</span>
+<span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="vs">import numpy as np</span></span>
+<span id="cb7-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="vs">import ANNarchy as ann</span></span>
+<span id="cb7-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="vs">P = ann.Population(geometry=1000, neuron=ann.Izhikevich)</span></span>
+<span id="cb7-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="vs">E = P[:800] ; I = P[800:]</span></span>
+<span id="cb7-7"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="vs">EI = ann.Projection(pre=E, post=P, target='exc')</span></span>
+<span id="cb7-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="vs">EI.connect_all_to_all(weights=ann.Uniform(0.0, 0.5))</span></span>
+<span id="cb7-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="vs">   </span></span>
+<span id="cb7-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="vs">IE = ann.Projection(pre=I, post=P, target='inh')</span></span>
+<span id="cb7-12"><a href="" aria-hidden="true" tabindex="-1"></a><span class="vs">IE.connect_all_to_all(weights=ann.Uniform(0.0, 1.0))</span></span>
+<span id="cb7-13"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="" aria-hidden="true" tabindex="-1"></a><span class="vs">ann.compile()</span></span>
+<span id="cb7-15"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="" aria-hidden="true" tabindex="-1"></a><span class="vs">ann.simulate(1000.0, measure_time=True)</span></span>
+<span id="cb7-17"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">lstlisting</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<p><strong>Markdown</strong></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb8-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ANNarchy <span class="im">as</span> ann</span>
+<span id="cb8-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> ann.Population(geometry<span class="op">=</span><span class="dv">1000</span>, neuron<span class="op">=</span>ann.Izhikevich)</span>
+<span id="cb8-6"><a href="" aria-hidden="true" tabindex="-1"></a>E <span class="op">=</span> P[:<span class="dv">800</span>] <span class="op">;</span> I <span class="op">=</span> P[<span class="dv">800</span>:]</span>
+<span id="cb8-7"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="" aria-hidden="true" tabindex="-1"></a>EI <span class="op">=</span> ann.Projection(pre<span class="op">=</span>E, post<span class="op">=</span>P, target<span class="op">=</span><span class="st">'exc'</span>)</span>
+<span id="cb8-9"><a href="" aria-hidden="true" tabindex="-1"></a>EI.connect_all_to_all(weights<span class="op">=</span>ann.Uniform(<span class="fl">0.0</span>, <span class="fl">0.5</span>))</span>
+<span id="cb8-10"><a href="" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb8-11"><a href="" aria-hidden="true" tabindex="-1"></a>IE <span class="op">=</span> ann.Projection(pre<span class="op">=</span>I, post<span class="op">=</span>P, target<span class="op">=</span><span class="st">'inh'</span>)</span>
+<span id="cb8-12"><a href="" aria-hidden="true" tabindex="-1"></a>IE.connect_all_to_all(weights<span class="op">=</span>ann.Uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>))</span>
+<span id="cb8-13"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="" aria-hidden="true" tabindex="-1"></a>ann.<span class="bu">compile</span>()</span>
+<span id="cb8-15"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="" aria-hidden="true" tabindex="-1"></a>ann.simulate(<span class="fl">1000.0</span>, measure_time<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-17"><a href="" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Code blocks with syntax highlighting are available for many languages: python, cpp, latex, java, html, etc.</p>
+</section>
+
+<section id="equations" class="title-slide slide level1 center">
+<h1>Equations</h1>
+<ul>
+<li>Both LaTeX and Markdown use the same mathematical description for equations, both inline and as blocks, using the <code>$$</code> environment:</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a>The firing rate $r_j (t)$ of the $j$-th neuron in the population follows the following equation:</span>
+<span id="cb9-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb9-4"><a href="" aria-hidden="true" tabindex="-1"></a>  \tau \, \dfrac{d r_j(t)}{dt} + r_j(t) = \sum_{i=1}^N w_{i, j} \, r_i (t)^+ + B_j </span>
+<span id="cb9-5"><a href="" aria-hidden="true" tabindex="-1"></a>$$</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The firing rate <span class="math inline">r_j (t)</span> of the <span class="math inline">j</span>-th neuron in the population follows the following equation:</p>
+<p><span id="eq-neuron"><span class="math display">
+  \tau \, \dfrac{d r_j(t)}{dt} + r_j(t) = \sum_{i=1}^N w_{i, j} \, r_i (t)^+ + B_j
+\tag{1}</span></span></p>
+</section>
+
+<section id="sec-pandoc" class="title-slide slide level1 center">
+<h1>2 - Pandoc</h1>
+
+</section>
+
+<section id="pandoc" class="title-slide slide level1 center">
+<h1>Pandoc</h1>
+<ul>
+<li><p>Many tools are available to produce documents (html, pdf) from Markdown files, sometimes using modifications of the syntax (e.g.&nbsp;Github-flavoured Markdown).</p></li>
+<li><p><a href="https://pandoc.org">Pandoc</a> is an amazing converter from Markdown to many other formats (html, latex, docx, odt, wiki) and back, with its own extension of the Markdown syntax and templates.</p></li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> file.md <span class="at">--template</span><span class="op">=</span>nature.tex <span class="at">-o</span> file.pdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<iframe width="1500" height="500" src="https://pandoc.org/"></iframe>
+<div class="footer">
+<p><a href="https://pandoc.org" class="uri">https://pandoc.org</a></p>
+</div>
+</section>
+
+<section id="cross-references" class="title-slide slide level1 center">
+<h1>Cross-references</h1>
+<ul>
+<li><p>As <code>\label{}</code> and <code>\ref{}</code> in LaTeX, Pandoc’s markdown allows the use of <strong>cross-references</strong> in documents.</p></li>
+<li><p>The label must be preceded by the type of the object, e.g.&nbsp;<code>sec-</code>, <code>fig-</code>, <code>eq-</code>, <code>tbl-</code>.</p></li>
+<li><p><code>#</code> is for the label, <code>@</code> for the call, including the prefix (Figure, Equation).</p></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction {#sec-introduction}</span></span>
+<span id="cb11-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="al">![The logo of the lab.](img/ai.webp)</span>{#fig-logolab width=50%}</span>
+<span id="cb11-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb11-6"><a href="" aria-hidden="true" tabindex="-1"></a>  \tau \, \dfrac{d r_j(t)}{dt} + r_j(t) = \sum_{i=1}^N w_{i, j} \, r_i (t)^+ + B_j </span>
+<span id="cb11-7"><a href="" aria-hidden="true" tabindex="-1"></a>$$ {#eq-neuron}</span>
+<span id="cb11-8"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="" aria-hidden="true" tabindex="-1"></a>@sec-introduction, @fig-logolab, @eq-neuron</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>renders the refs as:</p>
+<p><a href="#/sec-introduction" class="quarto-xref">Section&nbsp;1</a>, <a href="#/images" class="quarto-xref">Figure&nbsp;1</a>, <a href="#/equations" class="quarto-xref">Equation&nbsp;1</a></p>
+</section>
+
+<section id="bibliography" class="title-slide slide level1 center">
+<h1>Bibliography</h1>
+<ul>
+<li><p>Pandoc can use bibtex files to generate the bibliography automatically.</p></li>
+<li><p>The path to the bib file and the CSL style can be declared as a variable in the CLI or in the YAML preamble of the file:</p></li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb12-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Markdown, Pandoc and Quarto</span></span>
+<span id="cb12-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> a modern ecosystem for typesetting and publishing</span></span>
+<span id="cb12-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Julien Vitay </span></span>
+<span id="cb12-5"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> references.bib</span></span>
+<span id="cb12-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="an">csl:</span><span class="co"> frontiers.csl</span></span>
+<span id="cb12-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb12-9"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="" aria-hidden="true" tabindex="-1"></a>@Vitay2015 introduced ANNarchy <span class="co">[</span><span class="ot">@Scholl2022</span><span class="co">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote>
+<p><span class="citation" data-cites="Vitay2015">Vitay et al. (<a href="#/references" role="doc-biblioref" onclick="">2015</a>)</span> introduced ANNarchy <span class="citation" data-cites="Scholl2022">(<a href="#/references" role="doc-biblioref" onclick="">Scholl et al., 2022</a>)</span></p>
+</blockquote>
+<ul>
+<li><p>Any citation style can be used when available at <a href="https://citationstyles.org" class="uri">https://citationstyles.org</a>.</p></li>
+<li><p>The references are automatically added at the end of the document.</p></li>
+</ul>
+</section>
+
+<section id="divs" class="title-slide slide level1 center">
+<h1>Divs</h1>
 <div class="columns">
 <div class="column">
 <ul>
+<li><p>Divs allow to apply a CSS class or a LaTeX environment on some content.</p></li>
+<li><p>Three colons (<code>:::</code>) start and stop the div, using curly braces or directly the tag if there is only one.</p></li>
+<li><p>Examples with callouts:</p></li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb13-2"><a href="" aria-hidden="true" tabindex="-1"></a>Content</span>
+<span id="cb13-3"><a href="" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="" aria-hidden="true" tabindex="-1"></a>or simply</span>
+<span id="cb13-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="" aria-hidden="true" tabindex="-1"></a>::: callout-warning</span>
+<span id="cb13-8"><a href="" aria-hidden="true" tabindex="-1"></a>Content</span>
+<span id="cb13-9"><a href="" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Content</p>
+</div>
+</div>
+</div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Content</p>
+</div>
+</div>
+</div>
+</div><div class="column">
+<ul>
+<li>Two columns (especially for slides)</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="" aria-hidden="true" tabindex="-1"></a>::: columns</span>
+<span id="cb14-2"><a href="" aria-hidden="true" tabindex="-1"></a>::: column</span>
+<span id="cb14-3"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Content of left column</span>
+<span id="cb14-5"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb14-7"><a href="" aria-hidden="true" tabindex="-1"></a>::: column</span>
+<span id="cb14-8"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Content of second column</span>
+<span id="cb14-10"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb14-12"><a href="" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Footer:</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="" aria-hidden="true" tabindex="-1"></a>::: footer</span>
+<span id="cb15-2"><a href="" aria-hidden="true" tabindex="-1"></a>Footer only for this slide</span>
+<span id="cb15-3"><a href="" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="footer">
+<p>Footer only for this slide</p>
+</div>
+<ul>
+<li>Divs are mostly for html, but some are also available for pdf.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section id="quarto" class="title-slide slide level1 center">
+<h1>3 - Quarto</h1>
+
+</section>
+
+<section id="quarto-1" class="title-slide slide level1 center">
+<h1>Quarto</h1>
+<ul>
+<li><p><code>pandoc</code> can convert any <code>.md</code> file into any format, but writing the right template can be quite cumbersome.</p></li>
+<li><p><a href="https://quarto.org">Quarto</a> is a publishing platform based on pandoc that allows to quickly get beautiful websites / books / articles / presentations (reveal.js) …</p></li>
+<li><p>Jupyter notebooks can even be used to generate (live) html pages and pdfs. The quarto file format is <code>.qmd</code>.</p></li>
+</ul>
+<iframe width="1500" height="500" src="https://quarto.org/"></iframe>
+<div class="footer">
+<p><a href="https://quarto.org" class="uri">https://quarto.org</a></p>
+</div>
+</section>
+
+<section id="python-code" class="title-slide slide level1 center">
+<h1>Python code</h1>
+<ul>
 <li>You can call Python / R / Julia code directly from a quarto document, and render the result, such as a Matplotlib plot:</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a>```{python}</span>
-<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-polar</span></span>
-<span id="cb2-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "A line plot on a polar axis"</span></span>
-<span id="cb2-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-7"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">2</span>, <span class="fl">0.01</span>)</span>
-<span id="cb2-9"><a href="" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> r</span>
-<span id="cb2-10"><a href="" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
-<span id="cb2-11"><a href="" aria-hidden="true" tabindex="-1"></a>  subplot_kw <span class="op">=</span> {<span class="st">'projection'</span>: <span class="st">'polar'</span>} </span>
-<span id="cb2-12"><a href="" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-13"><a href="" aria-hidden="true" tabindex="-1"></a>ax.plot(theta, r)</span>
-<span id="cb2-14"><a href="" aria-hidden="true" tabindex="-1"></a>ax.set_rticks([<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>])</span>
-<span id="cb2-15"><a href="" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>)</span>
-<span id="cb2-16"><a href="" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>```</p>
+<div class="columns">
+<div class="column">
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="" aria-hidden="true" tabindex="-1"></a>```{python}</span>
+<span id="cb16-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-polar</span></span>
+<span id="cb16-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "A line plot on a polar axis"</span></span>
+<span id="cb16-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb16-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb16-7"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">2</span>, <span class="fl">0.01</span>)</span>
+<span id="cb16-9"><a href="" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> r</span>
+<span id="cb16-10"><a href="" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
+<span id="cb16-11"><a href="" aria-hidden="true" tabindex="-1"></a>  subplot_kw <span class="op">=</span> {<span class="st">'projection'</span>: <span class="st">'polar'</span>} </span>
+<span id="cb16-12"><a href="" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-13"><a href="" aria-hidden="true" tabindex="-1"></a>ax.plot(theta, r)</span>
+<span id="cb16-14"><a href="" aria-hidden="true" tabindex="-1"></a>ax.set_rticks([<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>])</span>
+<span id="cb16-15"><a href="" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>)</span>
+<span id="cb16-16"><a href="" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb16-17"><a href="" aria-hidden="true" tabindex="-1"></a>```</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div id="cell-fig-polar" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
@@ -545,7 +893,7 @@
 <img data-src="index_files/figure-revealjs/fig-polar-output-1.png" width="450" height="439">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-polar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: A line plot on a polar axis
+Figure&nbsp;2: A line plot on a polar axis
 </figcaption>
 </figure>
 </div>
@@ -554,18 +902,133 @@ Figure&nbsp;1: A line plot on a polar axis
 </div>
 </div>
 </section>
-<section id="video-extension-must-start-with" class="slide level2">
-<h2>Video extension (must start with <code>##</code>)</h2>
-<iframe data-external="1" src="https://www.youtube.com/embed/wo9vZccmqwc" width="100%" height="85%" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
-</section></section>
+
+<section id="video-extension" class="title-slide slide level1 center">
+<h1>Video extension</h1>
+<ul>
+<li>Quarto has extensions to use special (javascript) libraries, e.g.&nbsp;for videos:</li>
+</ul>
+<iframe data-external="1" src="https://www.youtube.com/embed/wo9vZccmqwc" width="1000" height="563" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</section>
+
+<section id="quarto.yml" class="title-slide slide level1 center">
+<h1>_quarto.yml</h1>
+<ul>
+<li>The configuration of a quarto project can be done in the yaml preamble of a <code>.qmd</code> file, or at the project-level in the <code>_quarto.yml</code> file:</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb17-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="cb17-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
+<span id="cb17-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">output-dir</span><span class="kw">:</span><span class="at"> ../docs</span></span>
+<span id="cb17-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">website</span><span class="kw">:</span></span>
+<span id="cb17-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Website"</span></span>
+<span id="cb17-7"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb17-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">background</span><span class="kw">:</span><span class="at"> black</span></span>
+<span id="cb17-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pinned</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb17-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span></span>
+<span id="cb17-12"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Slides"</span></span>
+<span id="cb17-13"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> slides/presentation.html</span></span>
+<span id="cb17-14"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">icon</span><span class="kw">:</span><span class="at"> github</span></span>
+<span id="cb17-15"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">href</span><span class="kw">:</span><span class="at"> https://github.com/vitay/quarto-website</span></span>
+<span id="cb17-16"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">aria-label</span><span class="kw">:</span><span class="at"> GitHub</span></span>
+<span id="cb17-17"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb17-19"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">style</span><span class="kw">:</span><span class="at"> </span><span class="st">"docked"</span></span>
+<span id="cb17-20"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">logo</span><span class="kw">:</span><span class="at"> img/tuc.png</span></span>
+<span id="cb17-21"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">search</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb17-22"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb17-23"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"About"</span></span>
+<span id="cb17-24"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> index.qmd</span></span>
+<span id="cb17-25"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Tutorial"</span></span>
+<span id="cb17-26"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb17-27"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> Test.qmd</span></span>
+<span id="cb17-28"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-29"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">page-footer</span><span class="kw">:</span></span>
+<span id="cb17-30"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">    center</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb17-31"><a href="" aria-hidden="true" tabindex="-1"></a>      Copyright 2022 - Julien Vitay &lt;julien.vitay@informatik.tu-chemnitz.de&gt; - Chemnitz University of Technology</span>
+<span id="cb17-32"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-33"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb17-34"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb17-35"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">sandstone</span><span class="kw">,</span><span class="at"> ../assets/webpage.scss</span><span class="kw">]</span></span>
+<span id="cb17-36"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">page-layout</span><span class="kw">:</span><span class="at"> full</span></span>
+<span id="cb17-37"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">smooth-scroll</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb17-38"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">html-math-method</span><span class="kw">:</span><span class="at"> katex</span></span>
+<span id="cb17-39"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-40"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-41"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> references.bib</span></span>
+<span id="cb17-42"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">csl</span><span class="kw">:</span><span class="at"> ../assets/frontiers.csl</span></span>
+<span id="cb17-43"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-44"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight-style</span><span class="kw">:</span><span class="at"> github</span></span>
+<span id="cb17-45"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">code-line-numbers</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+
+<section id="reveal.js-slides" class="title-slide slide level1 center">
+<h1>Reveal.js slides</h1>
+<ul>
+<li><p><code>Reveal.js</code> (<a href="https://revealjs.com/" class="uri">https://revealjs.com/</a>) is a javascript library allowing to create a slide deck in html+css+js.</p></li>
+<li><p><code>pandoc/quarto</code> is able to generate reveal.js slides from Markdown files.</p></li>
+<li><p>Template at <a href="https://github.com/vitay/quarto-presentation" class="uri">https://github.com/vitay/quarto-presentation</a></p></li>
+</ul>
+<iframe width="1000" height="500" src="https://julien-vitay.net/quarto-presentation"></iframe>
+</section>
+
+<section id="websites" class="title-slide slide level1 center">
+<h1>Websites</h1>
+<ul>
+<li><p>Websites are only in html and can comprise multiple pages, with a sidebar and</p></li>
+<li><p>Template at <a href="https://github.com/vitay/quarto-website" class="uri">https://github.com/vitay/quarto-website</a></p></li>
+<li><p>Example at <a href="https://github.com/ANNarchy/ANNarchy.github.io" class="uri">https://github.com/ANNarchy/ANNarchy.github.io</a> and <a href="https://annarchy.github.io/" class="uri">https://annarchy.github.io/</a></p></li>
+</ul>
+<iframe width="1500" height="600" src="https://annarchy.github.io"></iframe>
+</section>
+
+<section id="books-theses" class="title-slide slide level1 center">
+<h1>Books / theses</h1>
+<ul>
+<li><p>Books are websites with a focus on generating a nice pdf, such as a textbook or a thesis.</p></li>
+<li><p>Template at <a href="https://github.com/vitay/quarto-thesis" class="uri">https://github.com/vitay/quarto-thesis</a></p></li>
+<li><p>Demo at <a href="https://julien-vitay.net/quarto-thesis" class="uri">https://julien-vitay.net/quarto-thesis</a> and <a href="https://julien-vitay.net/habilitation" class="uri">https://julien-vitay.net/habilitation</a></p></li>
+</ul>
+<iframe width="1500" height="500" src="https://julien-vitay.net/habilitation"></iframe>
+</section>
+
+<section id="article-reports" class="title-slide slide level1 center">
+<h1>Article / reports</h1>
+<ul>
+<li><p>Articles / reports are single documents, to be exported to html and pdf.</p></li>
+<li><p>With the right pandoc template, yuo can submit to any journal and have a html version of it.</p></li>
+<li><p>Template at <a href="https://github.com/vitay/quarto-report" class="uri">https://github.com/vitay/quarto-report</a></p></li>
+<li><p>Demo at <a href="https://julien-vitay.net/quarto-report" class="uri">https://julien-vitay.net/quarto-report</a></p></li>
+</ul>
+<iframe width="1500" height="500" src="https://julien-vitay.net/quarto-report"></iframe>
+</section>
+
+<section id="publishing-quarto" class="title-slide slide level1 center">
+<h1>Publishing quarto</h1>
+<ul>
+<li><p><code>quarto</code> is html-centric, it generates html files in the <code>docs/</code> directory.</p></li>
+<li><p>The html pages can be hosted on github for free.</p></li>
+<li><p>To render the files:</p></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>To push it to github:</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> publish gh-pages</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+
 <section id="references" class="title-slide slide level1 smaller scrollable">
 <h1>References</h1>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
-<p>Presentation by author in this context (optional).</p>
+<p>Tutorial on Markdown, Pandoc and Quarto</p>
 </div>
 </div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Scholl2022" class="csl-entry" role="listitem">
+Scholl, C., Baladron, J., Vitay, J., and Hamker, F. H. (2022). Enhanced habit formation in <span>Tourette</span> patients explained by shortcut modulation in a hierarchical cortico-basal ganglia model. <em>Brain Structure and Function</em>. doi:<a href="https://doi.org/10.1007/s00429-021-02446-x">10.1007/s00429-021-02446-x</a>.
+</div>
 <div id="ref-Vitay2015" class="csl-entry" role="listitem">
 Vitay, J., Dinkelbach, H. Ü., and Hamker, F. H. (2015). <span>ANNarchy</span>: A code generation approach to neural simulations on parallel hardware. <em>Frontiers in Neuroinformatics</em> 9. doi:<a href="https://doi.org/10.3389/fninf.2015.00019">10.3389/fninf.2015.00019</a>.
 </div>

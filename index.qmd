@@ -1,6 +1,6 @@
 ---
-title: Title of the presentation
-subtitle: Subtitle can be longer than the title but doesn't have to
+title: Markdown, Pandoc and Quarto
+subtitle: a modern ecosystem for typesetting and publishing
 
 author:
   - name: Julien Vitay 
@@ -13,78 +13,445 @@ author:
 bibliography: references.bib
 csl: assets/frontiers.csl
 
-footer: Presentation by author in this context (optional).
+footer: Tutorial on Markdown, Pandoc and Quarto
 ---
 
+# Why Markdown?  {#sec-introduction}
 
-# First slide
-
-::: {.columns}
-::: {.column width=50%}
-
-* Basic Markdown: **Bold**, *italic*, `typewriter`, [link](https://julien-vitay.net), <https://julien-vitay.net>
-
-* Equations with `katex` inline $\dfrac{d v(t)}{dt}$ and block:
-
-$$
-    \dfrac{d v(t)}{dt} + v(t) = I(t)
-$$
-
-* Code blocks with syntax highlighting:
-
-```python
-import ANNarchy as ann
-
-pop = ann.Population(
-    100, 
-    ann.Neuron(
-        parameters = "tau = 10.0; I = 0.0",
-        equations = "tau * dv/dt = I - v",
-        spike = "v > 1.0",
-        reset = "v = 0.0"
-    )
-)
-
-ann.compile()
-```
-
-
-::: 
-::: {.column width=50%}
-
-![](img/ai.webp){width=50% fig-align="center"}
-
-
-::: {.callout-note}
-## Note
-
-This is a note.
-:::
-
-::: {.callout-tip}
-## Beware
-
-This is a tip.
-:::
-
-:::
-:::
-
-
-* Citations [@Vitay2015] are automatically added to the last slide using a `.bib` file. You can hover the citation to see the full reference.
-
-::: footer
-Footer (just for this slide)
-:::
-
-# Python code
+* The two main approaches to generating documents (reports, slides, etc) are Office suites (MS, Google, Libre...) and LaTeX.
 
 :::columns
 :::column
 
+:::callout-note
+## Office
+
+*Pros:*
+
++ WYSIWYG
++ Collaboration (review mode, google doc)
+
+*Cons:*
+
++ Version conflicts.
++ Reproducibility.
++ Math equations and bibliography are not great.
+:::
+
+:::
+:::column
+
+:::callout-tip
+## LaTeX
+
+*Pros:*
+
++ Beautiful documents (but not beamer slides).
++ Reproducibility.
+
+*Cons:*
+
++ Horrible markup language.
++ Compilation is slow.
++ Only outputs pdf (no video in your slides).
+:::
+
+:::
+:::
+
+* Both are additionally not great at generating html $\rightarrow$ third ecosystem.
+
+# 1 - Markdown  {#sec-markdown}
+
+# Basic Markdown syntax
+
+* Markdown is a markup language (as html, tex, wiki, rst...) initially developed to write basic documents (e.g. README files or blocks in Jupyter notebooks).
+
+:::columns
+
+:::column
+**Latex**
+
+```latex
+\textbf{Bold text} \textit{Italic text}  \verb?Verbatim?
+
+\begin{itemize}
+  \item Item 1
+  \item Item 2
+\end{itemize}
+
+\begin{enumerate}
+  \item Item 1
+  \item Item 2
+\end{enumerate}
+
+\section{First header}
+\subsection{Second header}
+\subsubsection{Third header}
+
+\href{https://julien-vitay.net}{My website}
+\url{https://julien-vitay.net}
+```
+:::
+
+:::column
+**Markdown**
+
+```markdown
+**Bold text** *Italic text* `Verbatim`
+
+* Item 1
+* Item 2
+
+1. Item 1
+2. Item 2
+
+# First header
+## Second header
+### Third header
+
+
+[https://julien-vitay.net](My website)
+<https://julien-vitay.net>
+```
+:::
+
+:::
+
+# Images
+
+:::columns
+
+:::column
+**Latex**
+
+```latex
+\includegraphics{img/ai.png}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/ai.png}
+    \caption{The logo of the lab.}
+    \label{fig:mesh1}
+\end{figure}
+
+```
+
+![](img/ai.webp){fig-align=center width=50%}
+
+:::
+
+:::column
+**Markdown**
+
+```markdown
+![](img/ai.webp)
+
+![The logo of the lab.](img/ai.webp){width=50%}
+```
+
+![The logo of the lab.](img/ai.webp){#fig-logolab width=50%}
+:::
+
+:::
+
+# Tables
+
+:::columns
+
+:::column
+**Latex**
+
+```latex
+\begin{tabular}{|ccc|}
+ \hline
+ Column 1 & Column 2 & Column 3 \\
+ \hline \hline
+ item 11 & item 12 & item 13 \\
+ \hline
+ item 21  & item 22  & item 23  \\
+\hline
+\end{tabular}
+```
+
+:::
+
+:::column
+**Markdown**
+
+```markdown
+| Column 1 | Column 2 | Column 3 |
+| -------- | -------- | -------- |
+| item 11  | item 12  | item 13  |
+| item 21  | item 22  | item 23  |
+
+```
+
+<br>
+
+**Rendered**
+
+
+| Column 1 | Column 2 | Column 3 |
+| -------- | -------- | -------- |
+| item 11  | item 12  | item 13  |
+| item 21  | item 22  | item 23  |
+
+: {.table .table-striped .table-hover .bordered}
+
+:::
+
+:::
+
+<br>
+
+See <https://www.tablesgenerator.com/markdown_tables> for easier design of tables.
+
+
+# Code blocks
+
+
+:::columns
+
+:::column
+**Latex**
+
+```latex
+\begin{lstlisting}
+import numpy as np
+import ANNarchy as ann
+
+P = ann.Population(geometry=1000, neuron=ann.Izhikevich)
+E = P[:800] ; I = P[800:]
+
+EI = ann.Projection(pre=E, post=P, target='exc')
+EI.connect_all_to_all(weights=ann.Uniform(0.0, 0.5))
+   
+IE = ann.Projection(pre=I, post=P, target='inh')
+IE.connect_all_to_all(weights=ann.Uniform(0.0, 1.0))
+
+ann.compile()
+
+ann.simulate(1000.0, measure_time=True)
+\end{lstlisting}
+```
+
+:::
+
+:::column
+**Markdown**
+
+````markdown
+```python
+import numpy as np
+import ANNarchy as ann
+
+P = ann.Population(geometry=1000, neuron=ann.Izhikevich)
+E = P[:800] ; I = P[800:]
+
+EI = ann.Projection(pre=E, post=P, target='exc')
+EI.connect_all_to_all(weights=ann.Uniform(0.0, 0.5))
+   
+IE = ann.Projection(pre=I, post=P, target='inh')
+IE.connect_all_to_all(weights=ann.Uniform(0.0, 1.0))
+
+ann.compile()
+
+ann.simulate(1000.0, measure_time=True)
+```
+````
+
+:::
+
+:::
+
+Code blocks with syntax highlighting are available for many languages: python, cpp, latex, java, html, etc.
+
+# Equations
+
+* Both LaTeX and Markdown use the same mathematical description for equations, both inline and as blocks, using the `$$` environment:
+
+```markdown
+The firing rate $r_j (t)$ of the $j$-th neuron in the population follows the following equation:
+
+$$
+  \tau \, \dfrac{d r_j(t)}{dt} + r_j(t) = \sum_{i=1}^N w_{i, j} \, r_i (t)^+ + B_j 
+$$
+```
+
+The firing rate $r_j (t)$ of the $j$-th neuron in the population follows the following equation:
+
+$$
+  \tau \, \dfrac{d r_j(t)}{dt} + r_j(t) = \sum_{i=1}^N w_{i, j} \, r_i (t)^+ + B_j 
+$$ {#eq-neuron}
+
+
+
+# 2 - Pandoc {#sec-pandoc}
+
+# Pandoc 
+
+* Many tools are available to produce documents (html, pdf) from Markdown files, sometimes using modifications of the syntax (e.g. Github-flavoured Markdown).
+
+* [Pandoc](https://pandoc.org) is an amazing converter from Markdown to many other formats (html, latex, docx, odt, wiki) and back, with its own extension of the Markdown syntax and templates.
+
+```bash
+pandoc file.md --template=nature.tex -o file.pdf
+```
+
+```{=html}
+<iframe width="1500" height="500" src="https://pandoc.org/"></iframe>
+```
+
+:::footer
+<https://pandoc.org>
+:::
+
+# Cross-references
+
+* As `\label{}` and `\ref{}` in LaTeX, Pandoc's markdown allows the use of **cross-references** in documents. 
+
+* The label must be preceded by the type of the object, e.g. `sec-`, `fig-`, `eq-`, `tbl-`.
+
+* `#` is for the label, `@` for the call, including the prefix (Figure, Equation).
+
+```markdown
+# Introduction {#sec-introduction}
+
+![The logo of the lab.](img/ai.webp){#fig-logolab width=50%}
+
+$$
+  \tau \, \dfrac{d r_j(t)}{dt} + r_j(t) = \sum_{i=1}^N w_{i, j} \, r_i (t)^+ + B_j 
+$$ {#eq-neuron}
+
+@sec-introduction, @fig-logolab, @eq-neuron
+```
+
+renders the refs as:
+
+@sec-introduction, @fig-logolab, @eq-neuron
+
+# Bibliography
+
+* Pandoc can use bibtex files to generate the bibliography automatically. 
+
+* The path to the bib file and the CSL style can be declared as a variable in the CLI or in the YAML preamble of the file:
+
+```markdown
+---
+title: Markdown, Pandoc and Quarto
+subtitle: a modern ecosystem for typesetting and publishing
+author: Julien Vitay 
+
+bibliography: references.bib
+csl: frontiers.csl
+---
+
+@Vitay2015 introduced ANNarchy [@Scholl2022]
+```
+
+> @Vitay2015 introduced ANNarchy [@Scholl2022]
+
+* Any citation style can be used when available at <https://citationstyles.org>.
+
+* The references are automatically added at the end of the document.
+
+# Divs
+
+::: columns
+::: column
+
+* Divs allow to apply a CSS class or a LaTeX environment on some content.
+
+* Three colons (`:::`) start and stop the div, using curly braces or directly the tag if there is only one.
+
+* Examples with callouts:
+
+```markdown
+::: {.callout-note}
+Content
+:::
+
+or simply
+
+::: callout-warning
+Content
+:::
+```
+
+::: {.callout-note appearance=default}
+Content
+:::
+
+::: {.callout-warning appearance=default}
+Content
+:::
+
+:::
+::: column
+
+* Two columns (especially for slides)
+
+```markdown
+::: columns
+::: column
+
+* Content of left column
+
+:::
+::: column
+
+* Content of second column
+
+:::
+:::
+
+```
+
+* Footer:
+
+```markdown
+::: footer
+Footer only for this slide
+:::
+```
+::: footer
+Footer only for this slide
+:::
+
+* Divs are mostly for html, but some are also available for pdf.
+
+:::
+:::
+
+# 3 - Quarto
+
+# Quarto
+
+* `pandoc` can convert any `.md` file into any format, but writing the right template can be quite cumbersome.
+
+* [Quarto](https://quarto.org) is a publishing platform based on pandoc that allows to quickly get beautiful websites / books / articles / presentations (reveal.js) ...
+
+* Jupyter notebooks can even be used to generate (live) html pages and pdfs. The quarto file format is `.qmd`.
+
+
+```{=html}
+<iframe width="1500" height="500" src="https://quarto.org/"></iframe>
+```
+
+:::footer
+<https://quarto.org>
+:::
+
+
+# Python code
+
 * You can call Python / R / Julia code directly from a quarto document, and render the result, such as a Matplotlib plot:
 
-```python
+::: columns
+::: column
+
+````python
 ```{{python}}
 #| label: fig-polar
 #| fig-cap: "A line plot on a polar axis"
@@ -102,10 +469,10 @@ ax.set_rticks([0.5, 1, 1.5, 2])
 ax.grid(True)
 plt.show()
 ```
-```
+````
 
 :::
-:::column
+::: column
 
 ```{python}
 #| label: fig-polar
@@ -128,9 +495,135 @@ plt.show()
 :::
 :::
 
-## Video extension (must start with `##`)
+# Video extension
 
-{{< video https://youtu.be/wo9vZccmqwc width="100%" height="85%" >}}
+* Quarto has extensions to use special (javascript) libraries, e.g. for videos:
 
+
+{{< video https://youtu.be/wo9vZccmqwc width="1000" aspect-ratio="16x9" >}}
+
+# _quarto.yml
+
+* The configuration of a quarto project can be done in the yaml preamble of a `.qmd` file, or at the project-level in the `_quarto.yml` file:
+
+```yaml
+project:
+  type: website
+  output-dir: ../docs
+
+website:
+  title: "Website"
+
+  navbar:
+    background: black
+    pinned: true
+    right:
+      - text: "Slides"
+        file: slides/presentation.html
+      - icon: github
+        href: https://github.com/vitay/quarto-website
+        aria-label: GitHub
+
+  sidebar:
+    style: "docked"
+    logo: img/tuc.png
+    search: true
+    contents:
+      - text: "About"
+        file: index.qmd
+      - section: "Tutorial"
+        contents:
+        - Test.qmd
+
+  page-footer:
+    center: |
+      Copyright 2022 - Julien Vitay <julien.vitay@informatik.tu-chemnitz.de> - Chemnitz University of Technology
+
+format:
+  html:
+    theme: [sandstone, ../assets/webpage.scss]
+    page-layout: full
+    smooth-scroll: true
+    html-math-method: katex
+
+
+bibliography: references.bib
+csl: ../assets/frontiers.csl
+
+highlight-style: github
+code-line-numbers: false
+```
+
+
+# Reveal.js slides
+
+* `Reveal.js` (<https://revealjs.com/>) is a javascript library allowing to create a slide deck in html+css+js.
+
+* `pandoc/quarto` is able to generate reveal.js slides from Markdown files.
+
+* Template at <https://github.com/vitay/quarto-presentation>
+
+
+```{=html}
+<iframe width="1000" height="500" src="https://julien-vitay.net/quarto-presentation"></iframe>
+```
+
+# Websites
+
+* Websites are only in html and can comprise multiple pages, with a sidebar and 
+ 
+* Template at <https://github.com/vitay/quarto-website>
+
+* Example at <https://github.com/ANNarchy/ANNarchy.github.io> and <https://annarchy.github.io/>
+
+
+```{=html}
+<iframe width="1500" height="600" src="https://annarchy.github.io"></iframe>
+```
+
+# Books / theses
+
+* Books are websites with a focus on generating a nice pdf, such as a textbook or a thesis.
+
+* Template at <https://github.com/vitay/quarto-thesis>
+
+* Demo at <https://julien-vitay.net/quarto-thesis> and <https://julien-vitay.net/habilitation>
+
+
+```{=html}
+<iframe width="1500" height="500" src="https://julien-vitay.net/habilitation"></iframe>
+```
+
+# Article / reports
+
+* Articles / reports are single documents, to be exported to html and pdf.
+
+* With the right pandoc template, yuo can submit to any journal and have a html version of it.
+
+* Template at <https://github.com/vitay/quarto-report>
+
+* Demo at <https://julien-vitay.net/quarto-report> 
+
+```{=html}
+<iframe width="1500" height="500" src="https://julien-vitay.net/quarto-report"></iframe>
+```
+
+# Publishing quarto
+
+* `quarto` is html-centric, it generates html files in the `docs/` directory.
+
+* The html pages can be hosted on github for free.
+
+* To render the files:
+
+```bash
+quarto render .
+````
+
+* To push it to github:
+
+```bash
+quarto publish gh-pages
+```
 
 # References

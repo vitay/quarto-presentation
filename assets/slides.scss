@@ -7,29 +7,55 @@ $body-bg: #fff !default;
 $body-color: #000 !default;
 $link-color: #0c6730 !default;
 $selection-bg: #26351c !default;
+$code-color: #0c6730;
+$code-bg: #fff;
 
 // headings
 $presentation-heading-font: Roboto , 'open sans', Arial, Helvetica, serif !default;
 $presentation-heading-color: #383d3d !default;
 $presentation-h1-font-size:	1.5em;
-$code-block-font-size: 0.8em;
-$code-block-border-color: #fff;
 
-// figures
+// code blocks
+$code-block-font-size: 0.8em;
+$code-block-border-left: black;
+
 
 /*-- scss:rules --*/
+
+// Title page
 .reveal .title {
     padding-top: 5em;
+    font-size: 1.8em;
+}
+.reveal .subtitle {
+    padding-top: 1em;
+    font-size: 1.1em;
+}
+.reveal .quarto-title-author-email{
+    padding-top: 1em;
+}
+.reveal .quarto-title-affiliation{
+    padding-top: 1em;
+    font-size: 1.5em;
 }
 
-// references
+// Callouts
+.reveal .callout-title > p{
+    font-size: 1.2em;
+}
+.reveal .callout-content {
+    font-size: 1.2em;
+}
+
+  
+// References
 .reveal .csl-entry {
     font-size: 1.3em;
     padding-top: 0.5em;
 
 }
 
-// logo
+// Logo
 .reveal .slide-logo {
   display: block;
   position: fixed;
@@ -44,7 +70,7 @@ $code-block-border-color: #fff;
 }
 
 
-// cursor
+// Cursor
 .cursor-dot,.cursor-dot-outline{
     pointer-events:none;
     position:absolute;
