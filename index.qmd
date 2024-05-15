@@ -13,6 +13,8 @@ author:
 bibliography: references.bib
 csl: assets/frontiers.csl
 
+qrcode: https://julien-vitay.net/quarto-presentation
+
 footer: Tutorial on Markdown, Pandoc and Quarto
 ---
 

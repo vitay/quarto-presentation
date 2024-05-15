@@ -25,6 +25,9 @@ format:
     revealjs-plugins:
       - pointer
 
+    template-partials:
+      - assets/title-slide.html
+
     center-title-slide: true
     title-slide-attributes:
         data-background-image: "img/tuc-new.png"
