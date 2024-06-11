@@ -572,7 +572,7 @@ code-line-numbers: false
 
 # Websites
 
-* Websites are only in html and can comprise multiple pages, with a sidebar and 
+* Websites are only in html and can comprise multiple pages, with a sidebar and topbar for navigation.
  
 * Template at <https://github.com/vitay/quarto-website>
 
