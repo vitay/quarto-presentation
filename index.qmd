@@ -20,6 +20,7 @@ footer: Tutorial on Markdown, Pandoc and Quarto
 
 # Why Markdown?  {#sec-introduction}
 
+
 * The two main approaches to generating documents (reports, slides, etc) are Office suites (MS, Google, Libre...) and LaTeX.
 
 :::columns
@@ -333,6 +334,8 @@ renders the refs as:
 
 @sec-introduction, @fig-logolab, @eq-neuron
 
+* The prefix (Figure, etc) can be modified in a parameter file, for example for internationalization.
+
 # Bibliography
 
 * Pandoc can use bibtex files to generate the bibliography automatically. 
@@ -539,7 +542,7 @@ website:
 
   page-footer:
     center: |
-      Copyright 2022 - Julien Vitay <julien.vitay@informatik.tu-chemnitz.de> - Chemnitz University of Technology
+      Copyright Julien Vitay <julien.vitay@informatik.tu-chemnitz.de> - Chemnitz University of Technology
 
 format:
   html:
@@ -598,9 +601,9 @@ code-line-numbers: false
 
 # Article / reports
 
-* Articles / reports are single documents, to be exported to html and pdf.
+* Articles / reports are single documents that can be exported to html and pdf (through LaTeX).
 
-* With the right pandoc template, yuo can submit to any journal and have a html version of it.
+* With the right LaTeX pandoc template, you can submit to any journal and have a html version of it.
 
 * Template at <https://github.com/vitay/quarto-report>
 
@@ -612,9 +615,15 @@ code-line-numbers: false
 
 # Publishing quarto
 
-* `quarto` is html-centric, it generates html files in the `docs/` directory.
+* `quarto` is html-centric, it generates html files in the `docs/` directory (or anywhere).
 
 * The html pages can be hosted on github for free.
+
+* To visualize a preview:
+
+```bash
+quarto preview .
+````
 
 * To render the files:
 
