@@ -754,6 +754,9 @@ Figure&nbsp;1: The logo of the lab.
 <span id="cb11-9"><a href="" aria-hidden="true" tabindex="-1"></a>@sec-introduction, @fig-logolab, @eq-neuron</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>renders the refs as:</p>
 <p><a href="#/sec-introduction" class="quarto-xref">Section&nbsp;1</a>, <a href="#/images" class="quarto-xref">Figure&nbsp;1</a>, <a href="#/equations" class="quarto-xref">Equation&nbsp;1</a></p>
+<ul>
+<li>The prefix (Figure, etc) can be modified in a parameter file, for example for internationalization.</li>
+</ul>
 </section>
 
 <section id="bibliography" class="title-slide slide level1 center">
@@ -961,7 +964,7 @@ Figure&nbsp;2: A line plot on a polar axis
 <span id="cb17-28"><a href="" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-29"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">page-footer</span><span class="kw">:</span></span>
 <span id="cb17-30"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">    center</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb17-31"><a href="" aria-hidden="true" tabindex="-1"></a>      Copyright 2022 - Julien Vitay &lt;julien.vitay@informatik.tu-chemnitz.de&gt; - Chemnitz University of Technology</span>
+<span id="cb17-31"><a href="" aria-hidden="true" tabindex="-1"></a>      Copyright Julien Vitay &lt;julien.vitay@informatik.tu-chemnitz.de&gt; - Chemnitz University of Technology</span>
 <span id="cb17-32"><a href="" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-33"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
 <span id="cb17-34"><a href="" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
@@ -1011,8 +1014,8 @@ Figure&nbsp;2: A line plot on a polar axis
 <section id="article-reports" class="title-slide slide level1 center">
 <h1>Article / reports</h1>
 <ul>
-<li><p>Articles / reports are single documents, to be exported to html and pdf.</p></li>
-<li><p>With the right pandoc template, yuo can submit to any journal and have a html version of it.</p></li>
+<li><p>Articles / reports are single documents that can be exported to html and pdf (through LaTeX).</p></li>
+<li><p>With the right LaTeX pandoc template, you can submit to any journal and have a html version of it.</p></li>
 <li><p>Template at <a href="https://github.com/vitay/quarto-report" class="uri">https://github.com/vitay/quarto-report</a></p></li>
 <li><p>Demo at <a href="https://julien-vitay.net/quarto-report" class="uri">https://julien-vitay.net/quarto-report</a></p></li>
 </ul>
@@ -1022,15 +1025,19 @@ Figure&nbsp;2: A line plot on a polar axis
 <section id="publishing-quarto" class="title-slide slide level1 center">
 <h1>Publishing quarto</h1>
 <ul>
-<li><p><code>quarto</code> is html-centric, it generates html files in the <code>docs/</code> directory.</p></li>
+<li><p><code>quarto</code> is html-centric, it generates html files in the <code>docs/</code> directory (or anywhere).</p></li>
 <li><p>The html pages can be hosted on github for free.</p></li>
-<li><p>To render the files:</p></li>
+<li><p>To visualize a preview:</p></li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>To render the files:</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>To push it to github:</li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> publish gh-pages</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> publish gh-pages</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
 <section id="references" class="title-slide slide level1 smaller scrollable">
