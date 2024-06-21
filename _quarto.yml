@@ -17,13 +17,16 @@ format:
     chalkboard: 
       buttons: false
       theme: whiteboard
+    
+    pointer:
+      key: "q"
+      color: "green"
+      pointerSize: 16
+      alwaysVisible: false
 
     highlight-style: github
     code-line-numbers: false
     callout-appearance: minimal
-
-    revealjs-plugins:
-      - pointer
 
     template-partials:
       - assets/title-slide.html
@@ -35,5 +38,6 @@ format:
         data-background-opacity: "1"
         data-background-position: top
 
-
+revealjs-plugins:
+  - pointer
 
