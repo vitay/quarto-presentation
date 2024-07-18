@@ -25,18 +25,23 @@ $code-block-border-left: black;
 // Title page
 .reveal .title {
     padding-top: 5em;
-    font-size: 1.8em;
+    font-size: 1.6em;
 }
 .reveal .subtitle {
     padding-top: 1em;
-    font-size: 1.1em;
+    font-size: 1.3em;
 }
-.reveal .quarto-title-author-email{
+
+.quarto-title-author-name {
     padding-top: 1em;
+    font-size: 1.2em;
 }
-.reveal .quarto-title-affiliation{
+.quarto-title-author-email{
     padding-top: 1em;
-    font-size: 1.5em;
+    font-size: 1.2em;
+}
+.quarto-title-affiliation{
+    font-size: 1.2em;
 }
 
 // Callouts
