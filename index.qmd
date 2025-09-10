@@ -4,10 +4,10 @@ subtitle: a modern ecosystem for typesetting and publishing
 
 author:
   - name: Julien Vitay 
-    email: julien.vitay@informatik.tu-chemnitz.de
+    email: julien.vitay@eodyn.com
     url: https://julien-vitay.net
-    affiliation: Chemnitz University of Technology
-    affiliation-url: https://tu-chemnitz.de
+    affiliation: eOdyn Research and Development
+    affiliation-url: https://www.eodyn.com
     orcid: 0000-0001-5229-2349
 
 bibliography: references.bib
@@ -129,18 +129,18 @@ footer: Tutorial on Markdown, Pandoc and Quarto
 **Latex**
 
 ```latex
-\includegraphics{img/ai.png}
+\includegraphics{img/eodyn.png}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.5\textwidth]{img/ai.png}
-    \caption{The logo of the lab.}
+    \includegraphics[width=0.5\textwidth]{img/eodyn.png}
+    \caption{The logo of eOdyn.}
     \label{fig:mesh1}
 \end{figure}
 
 ```
 
-![](img/ai.webp){fig-align=center width=50%}
+![](img/eodyn.png){fig-align=center width=50%}
 
 :::
 
@@ -148,12 +148,12 @@ footer: Tutorial on Markdown, Pandoc and Quarto
 **Markdown**
 
 ```markdown
-![](img/ai.webp)
+![](img/eodyn.png)
 
-![The logo of the lab.](img/ai.webp){width=50%}
+![The logo of eOdyn.](img/eodyn.png){width=50%}
 ```
 
-![The logo of the lab.](img/ai.webp){#fig-logolab width=50%}
+![The logo of eOdyn.](img/eodyn.png){#fig-logolab width=50%}
 :::
 
 :::
@@ -321,7 +321,7 @@ pandoc file.md --template=nature.tex -o file.pdf
 ```markdown
 # Introduction {#sec-introduction}
 
-![The logo of the lab.](img/ai.webp){#fig-logolab width=50%}
+![The logo of eOdyn.](img/eodyn.png){#fig-logolab width=50%}
 
 $$
   \tau \, \dfrac{d r_j(t)}{dt} + r_j(t) = \sum_{i=1}^N w_{i, j} \, r_i (t)^+ + B_j 
@@ -531,7 +531,7 @@ website:
 
   sidebar:
     style: "docked"
-    logo: img/tuc.png
+    logo: img/eodyn.png
     search: true
     contents:
       - text: "About"

@@ -1,5 +1,11 @@
 <section id="$idprefix$title-slide"$for(title-slide-attributes/pairs)$ $it.key$="$it.value$"$endfor$ class="quarto-title-block">
-    
+  
+  $if(title-logo)$
+    <div class="quarto-slide-logo-wrapper">
+      <img src="$title-logo$" class="quarto-slide-logo">
+    </div>
+  $endif$
+  
     <h1 class="title">$title$</h1>
   $if(subtitle)$
     <p class="subtitle">$subtitle$</p>

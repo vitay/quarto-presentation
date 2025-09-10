@@ -14,6 +14,9 @@ format:
     touch: true
     fig-align: "center"
 
+    filters:
+      - ./assets/center_images.lua
+
     chalkboard: 
       buttons: false
       theme: whiteboard
@@ -32,11 +35,7 @@ format:
       - assets/title-slide.html
 
     center-title-slide: true
-    title-slide-attributes:
-        data-background-image: "img/tuc-new.png"
-        data-background-size: 30%
-        data-background-opacity: "1"
-        data-background-position: top
+    title-logo: "img/eodyn.png"
 
 revealjs-plugins:
   - pointer

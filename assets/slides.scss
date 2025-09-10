@@ -24,7 +24,7 @@ $code-block-border-left: black;
 
 // Title page
 .reveal .title {
-    padding-top: 5em;
+    padding-top: 1em;
     font-size: 1.6em;
 }
 .reveal .subtitle {
@@ -42,6 +42,15 @@ $code-block-border-left: black;
 }
 .quarto-title-affiliation{
     font-size: 1.2em;
+}
+
+.quarto-slide-logo-wrapper {
+  text-align: center;
+  margin-top: 40px; /* adjust as needed */
+}
+.quarto-slide-logo {
+  display: inline-block;
+  max-width: 200px; /* adjust as needed */
 }
 
 // Callouts
@@ -64,20 +73,6 @@ $code-block-border-left: black;
     font-size: 1.3em;
     padding-top: 0.5em;
 
-}
-
-// Logo
-.reveal .slide-logo {
-  display: block;
-  position: fixed;
-  bottom: unset !important;
-  right: unset !important;
-  top: 5px;
-  left: 5px;
-  height: 200px !important;
-  width: 250x !important;
-  max-width: unset !important;
-  max-height: unset !important;
 }
 
 
